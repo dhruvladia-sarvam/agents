@@ -784,6 +784,7 @@ class SynthesizeStream(tts.SynthesizeStream):
         self._ws_conn: aiohttp.ClientWebSocketResponse | None = None
 
     async def _run(self, output_emitter: tts.AudioEmitter) -> None:
+        self._segments_ch = utils.aio.Chan[tokenize.SentenceStream]()
         request_id = utils.shortuuid()
         self._client_request_id = request_id
         self._server_request_id = None
